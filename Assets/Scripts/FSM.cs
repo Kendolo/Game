@@ -10,20 +10,27 @@ public class FSM : MonoBehaviour
 
     void Update()
     {
-        currentState.OnStay();
+        currentState.OnStay?.Invoke();
+        if(currentState.hasSubStates)
+        {
+            currentState.SubMachine();
+        }
+
         for (int i = 0; i < transitions.Count; i++)
         {
             if (transitions[i].currentState == currentState.name && transitions[i].Condition() == true)
             {
-                currentState.OnExit();
-                for(int j = 0; j < states.Count; j++)
+                currentState.OnExit?.Invoke();
+                for (int j = 0; j < states.Count; j++)
                 {
                     if (states[j].name == transitions[i].nextState)
                     {
                         currentState = states[j];
-                        currentState.OnEnter();
+                        currentState.OnEnter?.Invoke();
+                        break;
                     }
                 }
+                break;
             }
         }
     }
