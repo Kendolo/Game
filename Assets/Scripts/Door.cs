@@ -91,7 +91,7 @@ public class Door : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(fsm.currentState.name);
+
     }
 
     //Conditions
@@ -255,11 +255,11 @@ public class Door : MonoBehaviour
     //Statemethods
     public void OnEnterPlay()
     {
-        if (subStateHistory != null)
+        if (subStateHistory.Count > steps)
         {
-            fsm.currentState.currentSubState = subStateHistory[steps - 1];
+            fsm.currentState.currentSubState = subStateHistory[steps];
             fsm.currentState.currentSubState.OnEnter?.Invoke();
-            for (int i = subStateHistory.Count - 1; i > steps; i--)
+            for (int i = subStateHistory.Count - 1; i >= steps; i--)
             {
                 subStateHistory.RemoveAt(i);
             }
@@ -272,14 +272,12 @@ public class Door : MonoBehaviour
         {
             subStateHistory.Add(fsm.currentState.currentSubState);
             cSpeed = 0;
+            steps = subStateHistory.Count - 1;
         }
         else
         {
             cSpeed += Time.deltaTime;
         }
-        steps = subStateHistory.Count;
-        Debug.Log(steps);
-        Debug.Log(fsm.currentState.currentSubState.name);
 
     }
 
@@ -287,7 +285,7 @@ public class Door : MonoBehaviour
     {
         if (rSpeed > rewindSpeed)
         {
-            if (steps > 1)
+            if (steps > 0)
             {
                 steps--;
             }
@@ -298,14 +296,14 @@ public class Door : MonoBehaviour
             rSpeed += Time.deltaTime;
         }
 
-        Debug.Log(steps);
+        //Debug.Log(steps);
     }
 
     public void OnStayRerewinding()
     {
         if (rSpeed > rewindSpeed)
         {
-            if (steps < subStateHistory.Count)
+            if (steps < subStateHistory.Count - 1)
             {
                 steps++;
             }
@@ -315,7 +313,7 @@ public class Door : MonoBehaviour
         {
             rSpeed += Time.deltaTime;
         }
-        Debug.Log(steps);
+        //Debug.Log(steps);
     }
 
     //Substatemethods
