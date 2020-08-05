@@ -5,10 +5,21 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Recorder recorder;
+    public float averageFPS;
+    float sumFPS;
+    int frames;
 
     void Start()
     {
         recorder = GameObject.Find("Recorder").GetComponent<Recorder>();
+    }
+
+    void Update()
+    {
+        frames++;
+        sumFPS += 1 / Time.deltaTime;
+        averageFPS = sumFPS / frames;
+        Debug.Log(averageFPS);
     }
 
     public void OnPostRender()

@@ -44,3 +44,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Global Background
+    uniqueID: 915812831
+    locked: 0
+  - name: Level Background
+    uniqueID: 4132483887
+    locked: 0
+  - name: Level Objects
+    uniqueID: 4100842277
+    locked: 0
+  - name: Normal Player
+    uniqueID: 2876578047
+    locked: 0
+  - name: Level Foreground
+    uniqueID: 951592441
+    locked: 0
+  - name: Recorder
+    uniqueID: 1301875089
+    locked: 0
+  - name: Rewind Player
+    uniqueID: 244695975
+    locked: 0

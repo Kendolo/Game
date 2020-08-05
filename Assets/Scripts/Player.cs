@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     FSM fsm;
     Rigidbody2D body;
+    SpriteRenderer spriteRenderer;
     public float runSpeed;
     public bool canTalk;
     public bool talkOver;
@@ -15,19 +16,17 @@ public class Player : MonoBehaviour
     {
         fsm = GetComponent<FSM>();
         body = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         fsm.states = new List<State>();
 
         fsm.states.Add(new State("Play"));
         fsm.states.Add(new State("Pause"));
-        fsm.states.Add(new State("Menu"));
         fsm.currentState = fsm.states[0];
 
         fsm.transitions = new List<Transition>();
         fsm.transitions.Add(new Transition("Play", "Pause", Play_Pause));
         fsm.transitions.Add(new Transition("Pause", "Play", Pause_Play));
-        fsm.transitions.Add(new Transition("Pause", "Menu", Pause_Menu));
-        fsm.transitions.Add(new Transition("Menu", "Play", Menu_Play));
 
         for (int i = 0; i < fsm.states.Count; i++)
         {
@@ -73,17 +72,20 @@ public class Player : MonoBehaviour
                     {
                         fsm.states[i].subStates[j].OnStay = OnStayRunRight;
                     }
+                    else if (fsm.states[i].subStates[j].name == "Rewinding")
+                    {
+                        fsm.states[i].subStates[j].OnEnter = OnEnterRewinding;
+                        fsm.states[i].subStates[j].OnExit = OnExitRewinding;
+                    }
 
                     //and so on
                 }
             }
-            //and so on
+            else if (fsm.states[i].name == "Pause")
+            {
+                fsm.states[i].OnStay = OnStayPause;
+            }
         }
-    }
-
-    void Update()
-    {
-        //Debug.Log(fsm.currentState.name);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -106,29 +108,6 @@ public class Player : MonoBehaviour
     }
 
     //Conditions
-    public bool Menu_Play()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public bool Pause_Menu()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     public bool Play_Pause()
     {
@@ -157,7 +136,7 @@ public class Player : MonoBehaviour
     //Subonditions:
     public bool Idle_RunLeft()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             return true;
         }
@@ -169,7 +148,7 @@ public class Player : MonoBehaviour
 
     public bool RunLeft_Idle()
     {
-        if (!Input.GetKey(KeyCode.A))
+        if (!Input.GetKey(KeyCode.LeftArrow))
         {
             return true;
         }
@@ -181,7 +160,7 @@ public class Player : MonoBehaviour
 
     public bool Idle_RunRight()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             return true;
         }
@@ -193,7 +172,7 @@ public class Player : MonoBehaviour
 
     public bool RunRight_Idle()
     {
-        if (!Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.RightArrow))
         {
             return true;
         }
@@ -299,9 +278,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    //State methods
+    public void OnStayPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     public void OnStayPlay()
     {
-
+        
     }
 
     //Substate methods
@@ -320,5 +308,17 @@ public class Player : MonoBehaviour
     {
         //body.AddForce(new Vector2(-runSpeed, 0f));
         body.velocity = new Vector2(runSpeed, 0f);
+    }
+
+    public void OnEnterRewinding()
+    {
+        spriteRenderer.sortingLayerName = "Rewind Player";
+        spriteRenderer.color = Color.cyan;
+    }
+
+    public void OnExitRewinding()
+    {
+        spriteRenderer.sortingLayerName = "Normal Player";
+        spriteRenderer.color = Color.white;
     }
 }

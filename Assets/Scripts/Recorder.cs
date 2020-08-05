@@ -160,6 +160,7 @@ public class Recorder : MonoBehaviour
     public void OnExitPlay()
     {
         spriteRenderer.enabled = true;
+        grab = false;
         if (screenHistory.Count > steps)
         {
             spriteRenderer.sprite = Sprite.Create(screenHistory[steps], new Rect(0, 0, screenHistory[steps].width, screenHistory[steps].height), new Vector2(0.5f, 0.5f), ppu);
