@@ -8,10 +8,13 @@ public class CameraController : MonoBehaviour
     public float averageFPS;
     float sumFPS;
     int frames;
+    public int ppu;
+    public float zoom;
 
     void Start()
     {
         recorder = GameObject.Find("Recorder").GetComponent<Recorder>();
+        Camera.main.orthographicSize = Screen.height / (zoom * 2 * ppu);
     }
 
     void Update()

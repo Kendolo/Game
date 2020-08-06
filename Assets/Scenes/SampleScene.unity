@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 84749701}
   - component: {fileID: 84749707}
   - component: {fileID: 84749706}
+  - component: {fileID: 84749703}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -178,7 +179,8 @@ SpriteRenderer:
   m_SortingLayerID: -1418389249
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d982611f5fb0e9447a12a15e5000b554, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 40c769243e701774f83bbdeebe15462d,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -210,6 +212,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!95 &84749703
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84749700}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8bb6cc7d9d6360e4e99af9a938166b69, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &84749704
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fccefec8c1181c47adfe2424fb7ca22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 10
+  runSpeed: 5
   canTalk: 0
   talkOver: 0
   hasKey: 0
@@ -326,9 +347,9 @@ MonoBehaviour:
   currentSprite: {fileID: 0}
   steps: 0
   rewindSpeed: 0.02
-  captureSpeed: 1
+  captureSpeed: 0.5
   grab: 0
-  ppu: 54
+  ppu: 90
 --- !u!4 &293987411
 Transform:
   m_ObjectHideFlags: 0
@@ -432,6 +453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recorder: {fileID: 0}
   averageFPS: 0
+  ppu: 18
+  zoom: 5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -592,7 +615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619561840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: 17.5, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -623,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewindSpeed: 0.02
-  captureSpeed: 1
+  captureSpeed: 0.5
 --- !u!61 &619561846
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -750,7 +773,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698867753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: -18, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

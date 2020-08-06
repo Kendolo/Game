@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     FSM fsm;
     Rigidbody2D body;
     SpriteRenderer spriteRenderer;
+    Animator animator;
     public float runSpeed;
     public bool canTalk;
     public bool talkOver;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
         fsm = GetComponent<FSM>();
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         fsm.states = new List<State>();
 
@@ -66,11 +68,15 @@ public class Player : MonoBehaviour
                     }
                     else if (fsm.states[i].subStates[j].name == "RunLeft")
                     {
+                        fsm.states[i].subStates[j].OnEnter = OnEnterRunLeft;
                         fsm.states[i].subStates[j].OnStay = OnStayRunLeft;
+                        fsm.states[i].subStates[j].OnExit = OnExitRunLeft;
                     }
                     else if (fsm.states[i].subStates[j].name == "RunRight")
                     {
+                        fsm.states[i].subStates[j].OnEnter = OnEnterRunRight;
                         fsm.states[i].subStates[j].OnStay = OnStayRunRight;
+                        fsm.states[i].subStates[j].OnExit = OnExitRunRight;
                     }
                     else if (fsm.states[i].subStates[j].name == "Rewinding")
                     {
@@ -298,10 +304,25 @@ public class Player : MonoBehaviour
         body.velocity = new Vector2(0f, 0f);
     }
 
+    public void OnEnterRunLeft()
+    {
+        animator.SetBool("RunLeft", true);
+    }
+
     public void OnStayRunLeft()
     {
         //body.AddForce(new Vector2(-runSpeed, 0f));
         body.velocity = new Vector2(-runSpeed, 0f);
+    }
+
+    public void OnExitRunLeft()
+    {
+        animator.SetBool("RunLeft", false);
+    }
+
+    public void OnEnterRunRight()
+    {
+        animator.SetBool("RunRight", true);
     }
 
     public void OnStayRunRight()
@@ -310,15 +331,22 @@ public class Player : MonoBehaviour
         body.velocity = new Vector2(runSpeed, 0f);
     }
 
+    public void OnExitRunRight()
+    {
+        animator.SetBool("RunRight", false);
+    }
+
     public void OnEnterRewinding()
     {
         spriteRenderer.sortingLayerName = "Rewind Player";
-        spriteRenderer.color = Color.cyan;
+        //spriteRenderer.color = Color.cyan;
+        animator.SetBool("Rewinding", true);
     }
 
     public void OnExitRewinding()
     {
         spriteRenderer.sortingLayerName = "Normal Player";
-        spriteRenderer.color = Color.white;
+        //spriteRenderer.color = Color.white;
+        animator.SetBool("Rewinding", false);
     }
 }

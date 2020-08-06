@@ -169,7 +169,7 @@ public class Door : MonoBehaviour
 
     public bool Hold_Rewinding()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             return true;
         }
@@ -181,7 +181,7 @@ public class Door : MonoBehaviour
 
     public bool Rewinding_Hold()
     {
-        if (!Input.GetKey(KeyCode.A))
+        if (!Input.GetKey(KeyCode.LeftArrow))
         {
             return true;
         }
@@ -193,7 +193,7 @@ public class Door : MonoBehaviour
 
     public bool Hold_Rerewinding()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             return true;
         }
@@ -205,7 +205,7 @@ public class Door : MonoBehaviour
 
     public bool Rerewinding_Hold()
     {
-        if (!Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.RightArrow))
         {
             return true;
         }
