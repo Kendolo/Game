@@ -301,39 +301,43 @@ public class Player : MonoBehaviour
     //Substate methods
     public void OnEnterIdle()
     {
-        body.velocity = new Vector2(0f, 0f);
+
     }
 
     public void OnEnterRunLeft()
     {
         animator.SetBool("RunLeft", true);
+        body.velocity = new Vector2(-runSpeed, 0f);
     }
 
     public void OnStayRunLeft()
     {
         //body.AddForce(new Vector2(-runSpeed, 0f));
-        body.velocity = new Vector2(-runSpeed, 0f);
+
     }
 
     public void OnExitRunLeft()
     {
         animator.SetBool("RunLeft", false);
+        body.velocity = new Vector2(0f, 0f);
     }
 
     public void OnEnterRunRight()
     {
         animator.SetBool("RunRight", true);
+        body.velocity = new Vector2(runSpeed, 0f);
     }
 
     public void OnStayRunRight()
     {
         //body.AddForce(new Vector2(-runSpeed, 0f));
-        body.velocity = new Vector2(runSpeed, 0f);
+
     }
 
     public void OnExitRunRight()
     {
         animator.SetBool("RunRight", false);
+        body.velocity = new Vector2(0f, 0f);
     }
 
     public void OnEnterRewinding()

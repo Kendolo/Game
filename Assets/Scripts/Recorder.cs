@@ -22,6 +22,7 @@ public class Recorder : MonoBehaviour
         fsm = GetComponent<FSM>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
+        spriteRenderer.color = Color.grey;
 
         fsm.states = new List<State>();
         fsm.states.Add(new State("Play"));
